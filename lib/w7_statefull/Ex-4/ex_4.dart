@@ -2,33 +2,96 @@ import 'package:flutter/material.dart';
 
 class ScoreCard extends StatefulWidget
 {
-  const ScoreCard({super.key});
+  final String course;
+  const ScoreCard({super.key, required this.course});
 
   @override
   State<ScoreCard> createState() => _ScoreCardState();
 }
 
 class _ScoreCardState extends State<ScoreCard> {
-  late String course = 'Flutter';
+  int score = 0;
+  final int maxScore = 10;
+  final int minScore = 0;
+
+  void updateScore(int delta)
+  {
+    setState(() {
+      score += delta;
+    }); 
+  }
+
+  VoidCallback? addScore()
+  {
+    if (score >= 10)
+    {
+      return null;
+    }
+    else
+    {
+      return () => updateScore(1);
+    }
+  }
+
+  VoidCallback? minusScore()
+  {
+    if (score <= 0)
+    {
+      return null;
+    }
+    else
+    {
+      return () => updateScore(-1);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.all(10),
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: SizedBox(
-        width: 360,
-        height: 180,
+        width: 500,
         child: Column(
           children: [
+
             Text(
-              'My Score in ${course}',
+              'My Score in ${widget.course}',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
                 ),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  iconSize: 30,
+                  color: Colors.black,
+                  onPressed: minusScore(),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  iconSize: 30,
+                  color: Colors.black,
+                  onPressed: addScore(),
+                ),
+              ],
+            ),
+
+            LinearProgressIndicator(
+              value: score/maxScore,
+              minHeight: 10, 
+              backgroundColor: Colors.grey[300],
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
             )
           ],
         ),
@@ -53,10 +116,10 @@ class _Ex4State extends State<Ex4> {
       padding: EdgeInsets.all(20),
       child: Center(
         child: Column(
-          children: [
-            ScoreCard(),
-            ScoreCard(),
-            ScoreCard(),
+          children: <Widget>[
+            Expanded(child: ScoreCard(course: 'Flutter'),),
+            Expanded(child: ScoreCard(course: 'Dart'),),
+            Expanded(child: ScoreCard(course: 'React'),),
           ],
         ),
       ),
