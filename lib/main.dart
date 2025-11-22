@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'w7_statefull/EX-1/ex_1.dart';
-import 'w7_statefull/EX-2/ex_2_step_1_start.dart';
-import 'w7_statefull/EX-3/ex_3_start.dart';
-import 'w7_statefull/Ex-4/ex_4.dart';
+import 'W8 - PRACTICE- Lists, Pass Functions/EXERCISE-1/ex_1_start.dart';
+import 'W8 - PRACTICE- Lists, Pass Functions/EXERCISE-2/main.dart';
+import 'W8 - PRACTICE- Lists, Pass Functions/EXERCISE-3/main.dart';
+import 'W8 - PRACTICE- Lists, Pass Functions/EXERCISE-4/main.dart';
+
 void main() {
   runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
     //home: Ex1(),
     //home: Ex2(),
-    //home: Ex3(),
-    home: Ex4(),
+    home: Ex3(),
+    //home: Ex4(),
   ));
 }
 
